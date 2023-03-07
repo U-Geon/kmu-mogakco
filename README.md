@@ -22,6 +22,7 @@
             <td align='center'><a href="https://github.com/Pr0d0"><img src="https://avatars.githubusercontent.com/u/65989284?v=4" width="100" height="100"></td>
             <td align='center'><a href="https://github.com/Seung-Woo-kmu"><img src="https://avatars.githubusercontent.com/u/66248758?v=4" width="100" height="100"></td>
             <td align='center'><a href="https://github.com/ukly"><img src="https://avatars.githubusercontent.com/u/65989344?v=4" width="100" height="100"></td>
+            <td align='center'><a href="https://github.com/TaegeunYou"><img src="https://avatars.githubusercontent.com/u/66227661?v=4" width="100" height="100"></td>
           </tr>
           <tr>
             <td align='center'>20203065</td>
@@ -29,6 +30,7 @@
             <td align='center'>20203103</td>
             <td align='center'>20203105</td>
             <td align='center'>20203119</td>
+            <td align='center'>스페셜게스트휴학생</td>
           </tr>
           <tr>
             <td align='center'>박규연</td>
@@ -36,12 +38,15 @@
             <td align='center'>유건</td>
             <td align='center'>유승우</td>
             <td align='center'>이정욱</td>
+            <td align='center'>유태근</td>
           </tr>
         </tr>
     </tbody>
 </table>
 
 </div>
+
+* 유태근은 휴학생이라 아무런 지원을 안 받습니다. 그냥 꼽사리 꼈습니다.
 
 &nbsp;  
 
@@ -68,7 +73,7 @@
 
 |주차 |날짜 |내용|참석인원|
 |----|----|---|------|
-|1주차|3/7 |   |      |
+|1주차|3/7 |OT 및 알고리즘 문제풀이|박규연, 심재민, 유건, 유승우, 유태근, 이정욱|
 |2주차|3/14 |   |      |
 |3주차|3/21|   |      |
 |4주차|3/28|   |      |
