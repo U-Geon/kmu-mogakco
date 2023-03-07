@@ -11,7 +11,7 @@
 <table>
     <thead>
         <tr>
-            <th colspan="5"> 소융대에이스 </th>
+            <th colspan="6"> 소융대에이스 </th>
         </tr>
     </thead>
     <tbody>
@@ -30,7 +30,7 @@
             <td align='center'>20203103</td>
             <td align='center'>20203105</td>
             <td align='center'>20203119</td>
-            <td align='center'>스페셜게스트휴학생</td>
+            <td align='center'>휴학생</td>
           </tr>
           <tr>
             <td align='center'>박규연</td>
