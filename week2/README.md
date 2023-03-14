@@ -2,5 +2,5 @@
 
 ## 활동내용
 - 모각공
-- [[BOJ]](https://www.acmicpc.net/problem/) 알고리즘 문제 풀이 및 풀이 방식 공유
+- [[BOJ]6603](https://www.acmicpc.net/problem/6603) 알고리즘 문제 풀이 및 풀이 방식 공유
 - 맛저: 프랭크버거, 짜파구리
