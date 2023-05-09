@@ -1,0 +1,308 @@
+# 18-1 Namespace
+
+## 이름 공간 정의
+
+```cpp
+#include <iostream>
+using namespace NetWork;
+int mode;
+
+namespace Graphics {
+	int mode;
+	int x, y;
+	void draw();
+	void message();
+}
+
+namepsace NetWork {
+	int mode;
+	int speed;
+	void send(char*);
+	void message();
+}
+
+int main()
+{
+	Graphics::mode = 1; //namespace:: 을 통해 접근 가능
+	speed = 1; //NetWork의 speed를 의미
+	mode = 1;  // 전역변수 mode와 NetWork의 mode가 충돌하여 컴파일 오류
+	::mode = 0; // 전역변수 mode를 의미
+}
+```
+
+## 다중 소스 파일에서 namespace
+
+다중 소스 파일에서 namespace에서 같은 이름 공간이 공유된다.
+
+# 18-2 Objects
+
+## 객체 배열
+
+```cpp
+Car carArray[3] = {
+	Car(10, "white"),
+	Car(20, "red"),
+	Car(0, "blue"),
+}
+```
+
+객체 별로 생성자를 호출할 수 있다.
+
+## 객체의 동적 생성
+
+```cpp
+Car *pCar = new Car();
+
+pcar->speed = 100; // x->y 는(*x).y를 의미한다.포인터 x의 역참조.y
+```
+
+위와 같이 동적 메모리 할당으로 객체 생성 해줄수 있다.
+
+```cpp
+class A{
+	int p;
+public:
+	A(int v = 0){
+		cout << this << " : A(int) called\n";  //a1의 멤버 함수에서 &a1(a1의 주소)를 의마하는
+		p = v;                                 //pointer
+	}
+	~A(){
+		cout << this << " : ~A() called\n";
+	}
+	int getP(){
+		return p;
+	}
+	void setP(int v){
+		p = (v<0) ? 0 : v;
+	}
+};
+A a1(2);
+```
+
+# 18-3 PassingObjects
+
+## 함수에서 객체의 전달
+
+1. **객체**가 함수의 매개 변수로 전달되는 경우
+2. **객체의 포인터**가 함수의 매개 변수로 전달되는 경우
+3. **객체의 레퍼런스**가 함수의 매개 변수로 전달되는 경우
+    1. call-by-reference의 용도: 함수에서 실인자의 값이 변경됨
+    2. 인자를 복사하지 않기 위한 용도: const A& 로 선언
+4. 함수가 객체를 반환하는 경우
+
+## 1)객체가 함수의 매개 변수로 전달되는 경우
+
+```cpp
+class Car{
+	int spped;
+	string color = "red";
+public:
+	Car(int s=0, string c="white"):speed(s), color(c){}
+	void display(){
+		cout << this << " ] " << speed << ", " << color << endl;
+
+void swapObjects(Car c1, Car c2){
+	Car tmp;
+	tmp = c1;
+	c1 = c2;
+	c2 = tmp;
+}
+
+int main(){
+	Car redCar(100, "red), blueCar(50, "blue");
+	redCar.display(); blueCar.display();  // 주소 ] 100,red / 주소 \ 50, blue
+	swapObjects(redCar, blueCar);
+	redCar.display(); blueCar.display();  // 주소 ] 100,red / 주소 \ 50, blue
+	return 0;
+}
+```
+
+위의 출력 결과를 보면 swapObjects를 실행해줬지만 결과값이 그대로인 것을 볼 수 있다.
+
+이는 객체가 call-by-value로 호출되었기 때문이다.
+
+## 2)객체의 포인터가 함수의 매개변수로 전달
+
+```cpp
+class Car{
+	int spped;
+	string color = "red";
+public:
+	Car(int s=0, string c="white"):speed(s), color(c){}
+	void display(){
+		cout << this << " ] " << speed << ", " << color << endl;
+
+void swapObjects(Car *c1, Car *c2){
+	Car tmp;
+	tmp = *c1;
+	*c1 = *c2;
+	*c2 = tmp;
+}
+
+int main(){
+	Car redCar(100, "red), blueCar(50, "blue");
+	redCar.display(); blueCar.display();  // 주소 ] 100,red / 주소 \ 50, blue
+	swapObjects(&redCar, &blueCar);
+	redCar.display(); blueCar.display();  // 주소 ] 50,blue / 주소 \ 100, red
+	return 0;
+}
+```
+
+포인터를 함수의 매개변수로 받아오면 call-by-reference가 되어 함수의 내부에서 포인터가 가리키는 값을 바꾸어주면 함수가 끝난 뒤 해당 주소의 값이 바뀌게 된다.
+
+## 3)객체의 레퍼런스가 함수의 매개변수로 전달
+
+```cpp
+class Car{
+	int spped;
+	string color = "red";
+public:
+	Car(int s=0, string c="white"):speed(s), color(c){}
+	void display(){
+		cout << this << " ] " << speed << ", " << color << endl;
+
+void swapObjects(Car& c1, Car& c2){
+	Car tmp;
+	tmp = c1;
+	c1 = c2;
+	c2 = tmp;
+}
+
+int main(){
+	Car redCar(100, "red), blueCar(50, "blue");
+	redCar.display(); blueCar.display();  // 주소 ] 100,red / 주소 ] 50, blue
+	swapObjects(redCar, blueCar);
+	redCar.display(); blueCar.display();  // 주소 ] 50, blue / 주소 ] 100, red
+	return 0;
+}
+```
+
+객체의 레퍼런스가 함수의 매개변수로 전달되면 함수 내부에서 매개변수로 받아온 변수를 직접 참조하기 때문에 값을 바꾸어준다.
+
+## 클래스의 크기???
+
+# 18-4 StaticMember
+
+## 정적 멤버
+
+- 인스턴스 변수: 객체메다 하나씩 있는 변수
+- **정적 변수**: **모든 객체를 통틀어서 하나**만 있는 변수
+
+## 정적 멤버 변수
+
+- 정적 멤버 변수의 초기화는 class 밖에서 해주어야 한다.
+
+```cpp
+int Car::numberOfCars = 0; //네임스페이스를 통해 접근
+```
+
+## static 멤버 변수의 초기화
+
+- non-constant static 멤버 변수는 초기화 리스트로 초기화할 수 없다.
+
+## const static 멤버 상수의 초기화
+
+```cpp
+class Car{
+	const static int c = 1;  //int(혹은 int enum)의 const만 class 선언 내에서 초기화가능
+	const static int *p;
+}
+
+const int *Car::p = &g; // const keyword 앞에 붙여줘야함
+```
+
+## 정적 멤버 함수
+
+- 정적 멤버 함수는 객체 없이 호출될 수 있다.
+- 인스턴스 멤버 변수를 사용할 수 없다.
+- 인스턴스 멤버 함수를 사용할 수 없다.
+
+```cpp
+class Car{
+	int speed;
+	static int numberOfCars;
+	static int getNumberOfCars() { return numberOfCars;} //static 멤버 변수인 numberOfCars
+}
+
+```
+
+# 18-5 constObject
+
+## 상수 멤버 변수
+
+- 초기화 방법에 따라
+    - **선언문에서 초기화** 하면: class-wide symbolic constant
+    - 생성자의 **초기화 리스트에서 초기화**하면: symbolic constant의 값을 object 마다 다르게 할 수 있다.
+
+## 상수 멤버 함수
+
+- 이 함수 안에서는 멤버 변수의 값을 변경할 수 없다.
+
+## 상수 함수의 사용
+
+- const 선언된 object에 대해서는 const member function만 호출 가능하다.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class A{
+	const int c;
+	const int hundred = 100;
+	int v;
+public:
+	A(int n=0): c(n) {};
+	void display() const {
+		cout << this << " ] " << c << ", ";
+		cout << hundred << endl;
+	}
+	void do_nothing() {}
+};
+
+int main(){
+	const A cA;
+	cA.display();
+	//cA.do_nothing();  실행하면 compiler error
+}
+```
+
+## 상수 함수의 overloading
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class A{
+	const int c;
+	const int hundred = 100;
+	int v;
+public:
+	A(int n=0): c(n) {};
+	void display() const {
+		cout << this << " ] " << c << ", ";
+		cout << hundred << " const display()\n";
+	}
+    void display() {
+		cout << this << " ] " << c << ", ";
+		cout << hundred << " display()\n";
+	}
+};
+
+int main(){
+	const A cA(5);
+	cA.display();
+  A obj(10);
+  obj.display();
+}
+```
+
+> 여기서 const인 display()만 남기면 const display()로 const A 객체인 cA와 A 변수인 obj 모두 const display()가 실행된다.
+> 
+> 
+> 결론: const 선언된 object에는 const 멤버 함수만 호출 가능하지만 변수로 선언된 object는 const 멤버 함수와 그냥 멤버 함수 모두 호출 가능하다.
+> 
+
+## Reference/pointer 인자의 const 선언 시 주의할점
+
+- 상수에 대한 reference/pointer를 const 선언이 되지 않은 reference/pointer에 대입 불가
+- const로 선언된 reference/pointer에 변수/상수에 대한 레퍼런스/포인터를 대입 가능
