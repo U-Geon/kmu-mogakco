@@ -6,6 +6,10 @@
 
 ---
 
+![image](https://github.com/noooey/kmu-mogakco/assets/66217855/9943a294-1d58-4a6b-9c14-5fe122f1aad8)
+
+열공 모임 **소융대에이스** 팀의 마지막 모각공을 축하해주기 위해서 정현서, 이준서가 특별 참석해주었습니다ㅠ.
+
 ![image](https://github.com/noooey/kmu-mogakco/assets/66217855/14c7ccf6-a4d4-4c6a-83c6-5ca3b96fe74a)
 
 다들 공부 열심히 하는 건 좋은데ㅠ 거북목 안 되게 조심합시다 =ㅠㅠ
